@@ -13,19 +13,27 @@ namespace cis237inclass3
         //*****************************
         private decimal weeklySalary;
 
-        
-
-        public decimal WeeklySalary
+        public decimal Salary
         {
-            get { return weeklySalary; }
-            set { weeklySalary = value; }
+            get {return weeklySalary * WEEKS_PER_YEAR; }
         }
 
 
         public override string ToString()
         {
-            return base.ToString() + " " + weeklySalary.ToString("C");
+            return base.ToString() + " " + Salary.ToString("C");
         }
+
+        public override string GetFormattedSalary()
+        {
+            return Salary.ToString("C");
+        }
+
+        public override object Clone()
+        {
+            return new SalaryEmployee(FirstName, LastName, weeklySalary);
+        }
+
 
 
         //*****************************

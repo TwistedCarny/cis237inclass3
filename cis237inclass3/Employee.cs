@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cis237inclass3
 {
-    class Employee
+    abstract class Employee : IEmployee
     {
 
         // Const for weeks per year
@@ -43,6 +43,15 @@ namespace cis237inclass3
         {
             return FirstAndLastName();
         }
+
+        public abstract string GetFormattedSalary();
+
+        public virtual string GetLastNameFirstName()
+        {
+            return this.lastName + ", " + firstName;
+        }
+
+        public abstract object Clone();
 
         public Employee(string firstName, string lastName)
         {

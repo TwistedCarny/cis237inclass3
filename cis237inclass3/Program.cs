@@ -15,22 +15,25 @@ namespace cis237inclass3
 
 
             //Let's make an array to hold a bunch of instances of the Employee class
-            Employee[] employees = new SalaryEmployee[10];
+            IEmployee[] employees = new IEmployee[10];
 
             //Let's add some employees to our array
             employees[0] = new SalaryEmployee("David", "Barnes", 835.00m);
             employees[1] = new SalaryEmployee("James", "Kirk", 453.00m);
             employees[2] = new SalaryEmployee("Jean-Luc", "Picard", 290.00m);
-            employees[3] = new SalaryEmployee("Benjamin", "Sisko", 587.00m);
-            employees[4] = new SalaryEmployee("Kathryn", "Janeway", 194.00m);
+            employees[3] = new HourlyEmployee("Benjamin", "Sisko", 40m, 26.00m);
+            employees[4] = new HourlyEmployee("Kathryn", "Janeway", 20m, 15.00m);
             employees[5] = new SalaryEmployee("Johnathan", "Archer", 135.00m);
 
+
+            // Make a index for the next open spot in the array
+            int nextOpen = 6;
 
             //Get some input from the user
             int choice = ui.GetUserInput();
 
             //While the choice they selected is not 2, continue to do work
-            while (choice != 2)
+            while (choice != 3)
             {
                 //See if the input they sent is equal to 1.
                 if (choice == 1)
@@ -39,12 +42,12 @@ namespace cis237inclass3
                     string outputString = "";
 
                     //Print out the employees in the array
-                    foreach (SalaryEmployee employee in employees)
+                    foreach (IEmployee employee in employees)
                     {
                         if (employee != null)
                         {
                             //Concat to the outputString
-                            outputString += employee.ToString() +
+                            outputString += employee.ToString() + " " + employee.GetFormattedSalary() +
                                 Environment.NewLine;
                         }
                     }
@@ -53,10 +56,24 @@ namespace cis237inclass3
                     ui.Output(outputString);
                 }
 
+                if(choice == 2)
+                {
+                    IEmployee clone = GetClonedObject(employees[0]);
+
+                    employees[nextOpen] = clone;
+
+                    nextOpen++;
+                }
+
                 //re-prompt the user for input
                 choice = ui.GetUserInput();
             }
 
+        }
+
+        static IEmployee GetClonedObject(ICloneable objectToClone)
+        {
+            return (IEmployee)objectToClone.Clone();
         }
     }
 }
